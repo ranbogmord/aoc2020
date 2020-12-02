@@ -3,12 +3,11 @@ package main
 import (
 	"aoc2020/utils"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math"
+	"os"
 	"sort"
 	"strconv"
-	"strings"
 )
 
 type BySize []int
@@ -25,32 +24,19 @@ func (b BySize) Swap(i, j int) {
 	b[i], b[j] = b[j], b[i]
 }
 
-func readInput() BySize {
-	data, err := ioutil.ReadFile("day1/input.txt")
-	if err != nil {
-		log.Fatalf("failed to read file: %v", err)
-	}
-
-	dataStr := string(data[:])
-	rows := strings.Split(dataStr, "\n")
-
-	var rowsInt []int
-	for _, row := range rows {
-		rInt, err := strconv.Atoi(row)
-		if err != nil {
-			log.Fatalf("failed to parse number as int: %v", err)
-		}
-		rowsInt = append(rowsInt, rInt)
-	}
-
-	sortedRows := BySize(rowsInt)
-	sort.Sort(sortedRows)
-	return sortedRows
-}
-
 func main() {
 	utils.Time(func() {
-		input := readInput()
+		instr := utils.ReadInput(os.Args[1])
+
+		var input BySize
+		for _, row := range instr {
+			rInt, err := strconv.Atoi(row)
+			if err != nil {
+				log.Fatalf("failed to parse number as int: %v", err)
+			}
+			input = append(input, rInt)
+		}
+		sort.Sort(input)
 
 		var checkedInputs map[string]int
 

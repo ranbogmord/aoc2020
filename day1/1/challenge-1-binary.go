@@ -2,10 +2,9 @@ package main
 
 import (
 	"aoc2020/utils"
-	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
-	"strings"
 )
 
 type bstnode struct {
@@ -68,30 +67,18 @@ func (b *bst) findRec(node *bstnode, value int) *bstnode {
 	}
 }
 
-func readInput() []int {
-	data, err := ioutil.ReadFile("day1/input.txt")
-	if err != nil {
-		log.Fatalf("failed to read file: %v", err)
-	}
-
-	dataStr := string(data[:])
-	rows := strings.Split(dataStr, "\n")
-
-	var rowsInt []int
-	for _, row := range rows {
-		rInt, err := strconv.Atoi(row)
-		if err != nil {
-			log.Fatalf("failed to parse number as int: %v", err)
-		}
-		rowsInt = append(rowsInt, rInt)
-	}
-
-	return rowsInt
-}
-
 func main() {
 	utils.Time(func () {
-		input := readInput()
+		instr := utils.ReadInput(os.Args[1])
+
+		var input []int
+		for _, row := range instr {
+			rInt, err := strconv.Atoi(row)
+			if err != nil {
+				log.Fatalf("failed to parse number as int: %v", err)
+			}
+			input = append(input, rInt)
+		}
 
 		val1 := -1
 		val2 := -1
