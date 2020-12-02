@@ -7,66 +7,6 @@ import (
 	"strconv"
 )
 
-type bstnode struct {
-	value int
-	left *bstnode
-	right *bstnode
-}
-
-type bst struct {
-	root *bstnode
-}
-
-func (b *bst) reset() {
-	b.root = nil
-}
-
-func (b *bst) insert(value int) {
-	b.insertRec(b.root, value)
-}
-
-func (b *bst) insertRec(node *bstnode, value int) *bstnode {
-	if b.root == nil {
-		b.root = &bstnode{
-			value: value,
-		}
-		return b.root
-	}
-	if node == nil {
-		return &bstnode{
-			value: value,
-		}
-	}
-	if value <= node.value {
-		node.left = b.insertRec(node.left, value)
-	}
-	if value > node.value {
-		node.right = b.insertRec(node.right, value)
-	}
-
-	return node
-}
-
-func (b *bst) find(value int) *bstnode {
-	return b.findRec(b.root, value)
-}
-
-func (b *bst) findRec(node *bstnode, value int) *bstnode {
-	if node == nil {
-		return nil
-	}
-
-	if node.value == value {
-		return node
-	}
-
-	if value < node.value {
-		return b.findRec(node.left, value)
-	} else {
-		return b.findRec(node.right, value)
-	}
-}
-
 func main() {
 	utils.Time(func () {
 		instr := utils.ReadInput(os.Args[1])
@@ -83,19 +23,19 @@ func main() {
 		val1 := -1
 		val2 := -1
 
-		tree := &bst{}
+		tree := &utils.BTS{}
 
 		for _, x := range input {
-			tree.insert(x)
+			tree.Insert(x)
 		}
 
 		for _, x := range input {
 			val := 2020 - x
 
-			foundVal := tree.find(val)
+			foundVal := tree.Find(val)
 			if foundVal != nil {
 				val1 = x
-				val2 = foundVal.value
+				val2 = foundVal.Value
 				break
 			}
 		}
