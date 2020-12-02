@@ -69,8 +69,6 @@ func main() {
 		for _, val := range input {
 			p := parseInput(val)
 
-			log.Printf("%s, %d - %d %s", val, p.Min, p.Max, p.Char)
-
 			if p.IsValid() {
 				valid += 1
 				log.Println("valid")
