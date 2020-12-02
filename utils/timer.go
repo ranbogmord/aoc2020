@@ -11,6 +11,6 @@ func Time(f func()) {
 	end := time.Now()
 
 	dur := end.UnixNano() - start.UnixNano()
-	durMs := float64(dur / 1000000)
+	durMs := float64(dur) / 1000000
 	fmt.Printf("Execution time: %.2fms\n", durMs)
 }
