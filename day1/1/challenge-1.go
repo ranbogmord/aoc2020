@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoc2020/utils"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -48,40 +49,42 @@ func readInput() BySize {
 }
 
 func main() {
-	input := readInput()
+	utils.Time(func() {
+		input := readInput()
 
-	var checkedInputs map[string]int
+		var checkedInputs map[string]int
 
-	val1 := -1
-	val2 := -1
+		val1 := -1
+		val2 := -1
 
-	for _, x := range input {
-		maxVal := 2020 - x
-		for _, y := range input {
-			key := fmt.Sprintf("%f-%f", math.Min(float64(x), float64(y)), math.Max(float64(x), float64(y)))
-			if _, ok := checkedInputs[key]; ok == true {
-				continue
+		for _, x := range input {
+			maxVal := 2020 - x
+			for _, y := range input {
+				key := fmt.Sprintf("%f-%f", math.Min(float64(x), float64(y)), math.Max(float64(x), float64(y)))
+				if _, ok := checkedInputs[key]; ok == true {
+					continue
+				}
+
+				if y > maxVal {
+					break
+				}
+
+				if x + y == 2020 {
+					val1 = x
+					val2 = y
+					break
+				}
 			}
 
-			if y > maxVal {
-				break
-			}
-
-			if x + y == 2020 {
-				val1 = x
-				val2 = y
+			if val1 > -1 && val2 > -1 {
 				break
 			}
 		}
 
-		if val1 > -1 && val2 > -1 {
-			break
+		if val1 == -1 || val2 == -1 {
+			log.Fatalln("no matches found")
 		}
-	}
 
-	if val1 == -1 || val2 == -1 {
-		log.Fatalln("no matches found")
-	}
-
-	log.Printf("Answer is:\n%d", val1 * val2)
+		log.Printf("Answer is:\n%d", val1 * val2)
+	})
 }
