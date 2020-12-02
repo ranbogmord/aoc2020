@@ -2,6 +2,7 @@ package main
 
 import (
 	"aoc2020/utils"
+	"fmt"
 	"log"
 	"os"
 	"regexp"
@@ -16,22 +17,7 @@ type Password struct {
 	Word string
 }
 
-func (p Password) IsValid() bool {
-	instances := 0
-	for _, ch := range strings.Split(p.Word, "") {
-		if ch == p.Char {
-			instances += 1
-		}
-	}
-
-	if instances >= p.Min && instances <= p.Max {
-		return true
-	} else {
-		return false
-	}
-}
-
-func parseInput(row string) *Password {
+func parseInput(row string) (int, int, string, string) {
 	re := regexp.MustCompile("(\\d+)-(\\d+)\\s(\\w):\\s(.*)")
 	matches := re.FindStringSubmatch(row)
 	if len(matches) == 0 {
@@ -51,12 +37,7 @@ func parseInput(row string) *Password {
 	char := matches[3]
 	word := matches[4]
 
-	return &Password{
-		Min: min,
-		Max: max,
-		Char: char,
-		Word: word,
-	}
+	return min, max, char, word
 }
 
 func main() {
@@ -67,15 +48,16 @@ func main() {
 		invalid := 0
 
 		for _, val := range input {
-			p := parseInput(val)
+			min, max, char, word := parseInput(val)
 
-			if p.IsValid() {
+			instances := strings.Count(word, char)
+			if instances >= min && instances <= max {
 				valid += 1
 			} else {
 				invalid += 1
 			}
 		}
 
-		log.Printf("Valid: %d, Invalid: %d", valid, invalid)
+		fmt.Printf("Valid: %d, Invalid: %d\n", valid, invalid)
 	})
 }

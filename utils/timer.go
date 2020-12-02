@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"log"
+	"fmt"
 	"time"
 )
 
@@ -12,5 +12,5 @@ func Time(f func()) {
 
 	dur := end.UnixNano() - start.UnixNano()
 	durMs := float64(dur / 1000000)
-	log.Printf("Execution time: %.2fms", durMs)
+	fmt.Printf("Execution time: %.2fms\n", durMs)
 }
