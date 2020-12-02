@@ -68,10 +68,8 @@ func main() {
 
 			if p.IsValid() {
 				valid += 1
-				log.Println("valid")
 			} else {
 				invalid += 1
-				log.Println("invalid")
 			}
 		}
 
