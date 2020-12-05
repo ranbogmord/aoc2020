@@ -61,7 +61,7 @@ func main() {
 
 				for jj := 0; jj < 8; jj++ {
 					if matrix[i][jj] == 0 {
-						fmt.Println("Possbile Seat: ", i, jj, (i * 8) + jj)
+						fmt.Println("Possible Seat: ", i, jj, (i * 8) + jj)
 					}
 				}
 			}
