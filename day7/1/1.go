@@ -15,8 +15,6 @@ func parseInput(rows []string) map[string]string {
 	for _, row := range rows {
 		matches := re.FindStringSubmatch(row)
 		contain := re2.ReplaceAllString(matches[2], ",")
-		//contain := strings.Replace(matches[2], "bags", "", -1)
-		//contain = strings.Replace(contain, "bag", "", -1)
 		result[matches[1]] = contain
 	}
 
@@ -48,7 +46,7 @@ func main() {
 				uniqueFound[f] = true
 			}
 		}
-		fmt.Println(uniqueFound)
+
 		fmt.Println(len(uniqueFound))
 	})
 }
