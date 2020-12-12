@@ -1,25 +1,16 @@
 package utils
 
-import "math"
+import (
+	"sort"
+)
 
 func SliceMax(slice []int) int {
-	max := 0
-	for _, val := range slice {
-		if val > max {
-			max = val
-		}
-	}
+	sort.Ints(slice)
 
-	return max
+	return slice[len(slice) - 1]
 }
 
 func SliceMin(slice []int) int {
-	min := math.MaxInt32
-	for _, val := range slice {
-		if val < min {
-			min = val
-		}
-	}
-
-	return min
+	sort.Ints(slice)
+	return slice[0]
 }
