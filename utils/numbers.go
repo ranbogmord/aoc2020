@@ -1,5 +1,10 @@
 package utils
 
+import (
+	"log"
+	"strconv"
+)
+
 func Max(x, y int) int {
 	if x > y {
 		return x
@@ -21,4 +26,13 @@ func AbsInt(x int) int {
 		x = -x
 	}
 	return x
+}
+
+func ToInt(x string) int {
+	val, err := strconv.Atoi(x)
+	if err != nil {
+		log.Fatalf("failed to parse int: %v", err)
+	}
+
+	return val
 }
